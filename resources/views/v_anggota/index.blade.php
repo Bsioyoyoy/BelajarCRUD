@@ -8,8 +8,8 @@
 </head>
 <body>
     <h3>{{ $judul }}</h3>
-    <a href="{{ route('anggota.create') }}">
-        <button type="button">/Tambah</button>
+    <a href="{{ route('anggota.create') }}"style="display:inline-block;">
+        <button type="button">Tambah</button>
     </a>
     <table border="1" width="100%">
     <tr>
@@ -27,7 +27,7 @@
             <a href="{{ route('anggota.edit', $row->id) }}">
                 <button type="button">ubah</button>
             </a>
-            <form action="{{ route('anggota.destroy', $row->id) }}" method="POST">
+            <form action="{{ route('anggota.destroy', $row->id) }}" method="POST" style="display:inline-block;">
                 @method('delete')
                 @csrf
             

@@ -34,7 +34,9 @@ class AnggotaController extends Controller
      */
     public function create()
     {
-        //
+        return view('v_anggota.create', [
+            'judul' => 'Tambah Anggota'
+            ]);
     }
 
     /**
@@ -42,14 +44,27 @@ class AnggotaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         // Debuging request data
+        // dd($request);
+        // atau untuk lebih banyak informasi debugging
+        // ddd($request);
+        $validdateData = $request->validate([
+            'nama' => 'required|max:255',
+            'hp' => 'required|min:10|max:13',
+        ]);
+        Anggota::create($validdateData);
+        return redirect('/anggota');
+
+
+
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request)
     {
+        
         //
     }
 
@@ -58,7 +73,13 @@ class AnggotaController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $anggota = Anggota::find($id);
+        return view('v_anggota.edit', [
+            'judul' => 'Ubah Aanggota',
+            'edit' => $anggota
+        ]);
+            
+        
     }
 
     /**
@@ -66,7 +87,13 @@ class AnggotaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $rules = [
+            'nama' => 'required|max:100',
+            'hp' => 'required|min:10|max:13',
+            ];
+            $validatedData = $request->validate($rules);
+            Anggota::where('id', $id)->update($validatedData);
+            return redirect('/anggota');
     }
 
     /**
@@ -74,6 +101,8 @@ class AnggotaController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $anggota = anggota::findOrfail($id);
+        $anggota->delete();
+        return redirect('/anggota');
     }
 }
